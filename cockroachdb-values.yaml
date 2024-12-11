@@ -1,0 +1,17 @@
+statefulset:
+  replicas: 1
+  resources:
+    requests:
+      memory: "1Gi"
+    limits:
+      memory: "2Gi"
+conf:
+  cache: "2Gi"
+  max-sql-memory: "2Gi"
+
+tls:
+  enabled: false
+
+storage:
+  persistentVolume:
+    size: 5Gi

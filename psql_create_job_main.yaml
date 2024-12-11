@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgres-create-maindb-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        command:
+          - "sh"
+        args:
+          - "-c"
+          - |
+            psql -h cockroachdb.cockroachdb-main -U root -p 26257 -c "CREATE DATABASE USERS;";
+            psql -h cockroachdb.cockroachdb-main -U root -p 26257 -c "CREATE DATABASE LEADS;";
+            psql -h cockroachdb.cockroachdb-main -U root -p 26257 -c "CREATE DATABASE QUIZ;";
+            psql -h cockroachdb.cockroachdb-main -U root -p 26257 -c "CREATE DATABASE NOTIF;";
+      restartPolicy: Never
+  backoffLimit: 4
